@@ -10,5 +10,14 @@
     <lastmod>2025-04-22</lastmod>
     <priority>0.80</priority>
   </url>
-  <!-- Add more <url> tags here if you have other pages -->
+  <url>
+    <loc>https://neb.ankitak.com.np/privacy.html</loc>
+    <lastmod>2025-04-22</lastmod>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://neb.ankitak.com.np/terms.html</loc>
+    <lastmod>2025-04-22</lastmod>
+    <priority>0.50</priority>
+  </url>
 </urlset>
