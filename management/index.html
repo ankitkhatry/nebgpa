@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NEB Grade 12 GPA Calculator | Accurate Management Stream Results</title>
+  <meta name="title" content="NEB Grade 12 GPA Calculator">
+  <meta name="description" content="Easily calculate your NEB Grade 12 Management stream GPA with our accurate and reliable GPA calculator.">
+  <meta name="keywords" content="NEB GPA calculator, Grade 12 Management GPA, NEB result calculator, Management stream GPA, NEB grading system, Account Business Economics GPA">
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+  <meta name="theme-color" content="#4361ee">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neb.ankitak.com.np/calculator/management/">
+  <meta property="og:title" content="NEB Grade 12 GPA Calculator - Management Stream">
+  <meta property="og:description" content="Easily calculate your NEB Grade 12 GPA for Management stream. Instant results for Accounts, Business Studies, Economics, and more.">
+  <meta property="og:image" content="https://neb.ankitak.com.np/social.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="NEB Tools">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://neb.ankitak.com.np/management/">
+  <meta name="twitter:title" content="NEB Grade 12 GPA Calculator | Accurate Management Stream Results">
+  <meta name="twitter:description" content="Calculate your NEB Grade 12 GPA for the Management stream with our accurate and user-friendly calculator.">
+  <meta name="twitter:image" content="https://neb.ankitak.com.np/social.jpg">
+  <meta name="twitter:creator" content="@ankitkhatrikc">
+
+  <link rel="canonical" href="https://neb.ankitak.com.np/management/">
+  <meta name="author" content="Ankit Khatri KC">
+  <meta name="robots" content="index, follow">
+  <meta name="revisit-after" content="7 days">
+  <meta name="geo.region" content="NP">
+  <meta name="geo.placename" content="Kathmandu">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "NEB Grade 12 GPA Calculator - Management Stream",
+    "description": "Accurate GPA calculator for NEB Grade 12 Management stream students",
+    "url": "https://neb.ankitak.com.np/management/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Fonts and Styles -->
+  <link rel="stylesheet" href="styles.css?v=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="animate__animated animate__fadeInDown">
+            <h1><i class="fas fa-calculator"></i> NEB Grade 12 GPA Calculator</h1>
+            <p>Management Stream - Accurate GPA Calculation Based on NEB Grading System</p>
+        </header>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="calculator-container animate__animated animate__fadeIn">
+            <div class="student-info">
+                <div class="form-group">
+                    <label for="studentName">Student Name</label>
+                    <input type="text" id="studentName" placeholder="Enter your full name">
+                </div>
+            </div>
+
+            <div class="stream-options">
+                <h3>Compulsory Subjects</h3>
+                <div class="subjects-container">
+                    <!-- English -->
+                    <div class="subject-card">
+                        <h3>English</h3>
+                        <div class="form-group">
+                            <label>Theory (75)</label>
+                            <select class="gpa-select theory" data-subject="english">
+                                <option value="">Select Grade</option>
+                                <option value="4.0">A+ (67.5-75)</option>
+                                <option value="3.6">A (60-67.5)</option>
+                                <option value="3.2">B+ (52.5-60)</option>
+                                <option value="2.8">B (45-52.5)</option>
+                                <option value="2.4">C+ (37.5-45)</option>
+                                <option value="2.0">C (30-37.5)</option>
+                                <option value="1.6">D (26.25-30)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Internal (25)</label>
+                            <select class="gpa-select practical" data-subject="english">
+                                <option value="">Select Grade</option>
+                                <option value="4.0">A+ (22.5-25)</option>
+                                <option value="3.6">A (20-22.5)</option>
+                                <option value="3.2">B+ (17.5-20)</option>
+                                <option value="2.8">B (15-17.5)</option>
+                                <option value="2.4">C+ (12.5-15)</option>
+                                <option value="2.0">C (10-12.5)</option>
+                                <option value="1.6">D (8.75-10)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Nepali -->
+                    <div class="subject-card">
+                        <h3>Nepali</h3>
+                        <div class="form-group">
+                            <label>Theory (75)</label>
+                            <select class="gpa-select theory" data-subject="nepali">
+                                <option value="">Select Grade</option>
+                                <option value="4.0">A+ (67.5-75)</option>
+                                <option value="3.6">A (60-67.5)</option>
+                                <option value="3.2">B+ (52.5-60)</option>
+                                <option value="2.8">B (45-52.5)</option>
+                                <option value="2.4">C+ (37.5-45)</option>
+                                <option value="2.0">C (30-37.5)</option>
+                                <option value="1.6">D (26.25-30)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Internal (25)</label>
+                            <select class="gpa-select practical" data-subject="nepali">
+                                <option value="">Select Grade</option>
+                                <option value="4.0">A+ (22.5-25)</option>
+                                <option value="3.6">A (20-22.5)</option>
+                                <option value="3.2">B+ (17.5-20)</option>
+                                <option value="2.8">B (15-17.5)</option>
+                                <option value="2.4">C+ (12.5-15)</option>
+                                <option value="2.0">C (10-12.5)</option>
+                                <option value="1.6">D (8.75-10)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Math/Social Studies -->
+                    <div class="subject-card">
+                        <h3 id="mathSocialTitle">Mathematics</h3>
+                        <div class="form-group">
+                            <label>Theory (75)</label>
+                            <select class="gpa-select theory" data-subject="mathSocial" id="mathSocialTheory">
+                                <option value="">Select Grade</option>
+                                <option value="4.0">A+ (67.5-75)</option>
+                                <option value="3.6">A (60-67.5)</option>
+                                <option value="3.2">B+ (52.5-60)</option>
+                                <option value="2.8">B (45-52.5)</option>
+                                <option value="2.4">C+ (37.5-45)</option>
+                                <option value="2.0">C (30-37.5)</option>
+                                <option value="1.6">D (26.25-30)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label id="mathSocialPracticalLabel">Internal (25)</label>
+                            <select class="gpa-select practical" data-subject="mathSocial" id="mathSocialPractical">
+                                <option value="">Select Grade</option>
+                                <option value="4.0">A+ (22.5-25)</option>
+                                <option value="3.6">A (20-22.5)</option>
+                                <option value="3.2">B+ (17.5-20)</option>
+                                <option value="2.8">B (15-17.5)</option>
+                                <option value="2.4">C+ (12.5-15)</option>
+                                <option value="2.0">C (10-12.5)</option>
+                                <option value="1.6">D (8.75-10)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject Choice</label>
+                            <select id="mathSocialChoice">
+                                <option value="math">Mathematics</option>
+                                <option value="social">Social Studies & Life Skills</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Optional Subjects (Choose 3)</h3>
+                <div class="subjects-container">
+                    <!-- Optional 1 -->
+                    <div class="subject-card">
+                        <h3>Optional I</h3>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select class="optional-subject" data-optional="1">
+                                <option value="">Select Subject</option>
+                                <option value="accountancy">Accountancy</option>
+                                <option value="economics">Economics</option>
+                                <option value="computer">Computer Science</option>
+                                <option value="business">Business Studies</option>
+                                <option value="tourism">Tourism & Mountaineering</option>
+                                <option value="businessMath">Business Mathematics</option>
+                                <option value="hotel">Hotel Management</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Theory</label>
+                            <select class="gpa-select optional-theory" data-optional="1">
+                                <option value="">Select Grade</option>
+                                <!-- Will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Practical/Internal</label>
+                            <select class="gpa-select optional-practical" data-optional="1">
+                                <option value="">Select Grade</option>
+                                <!-- Will be populated by JS -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Optional 2 -->
+                    <div class="subject-card">
+                        <h3>Optional II</h3>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select class="optional-subject" data-optional="2">
+                                <option value="">Select Subject</option>
+                                <option value="accountancy">Accountancy</option>
+                                <option value="economics">Economics</option>
+                                <option value="computer">Computer Science</option>
+                                <option value="business">Business Studies</option>
+                                <option value="tourism">Tourism & Mountaineering</option>
+                                <option value="businessMath">Business Mathematics</option>
+                                <option value="hotel">Hotel Management</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Theory</label>
+                            <select class="gpa-select optional-theory" data-optional="2">
+                                <option value="">Select Grade</option>
+                                <!-- Will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Practical/Internal</label>
+                            <select class="gpa-select optional-practical" data-optional="2">
+                                <option value="">Select Grade</option>
+                                <!-- Will be populated by JS -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Optional 3 -->
+                    <div class="subject-card">
+                        <h3>Optional III</h3>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select class="optional-subject" data-optional="3">
+                                <option value="">Select Subject</option>
+                                <option value="accountancy">Accountancy</option>
+                                <option value="economics">Economics</option>
+                                <option value="computer">Computer Science</option>
+                                <option value="business">Business Studies</option>
+                                <option value="tourism">Tourism & Mountaineering</option>
+                                <option value="businessMath">Business Mathematics</option>
+                                <option value="hotel">Hotel Management</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Theory</label>
+                            <select class="gpa-select optional-theory" data-optional="3">
+                                <option value="">Select Grade</option>
+                                <!-- Will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Practical/Internal</label>
+                            <select class="gpa-select optional-practical" data-optional="3">
+                                <option value="">Select Grade</option>
+                                <!-- Will be populated by JS -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calculate-btn-container">
+                <button id="calculateBtn" class="btn-primary animate__animated animate__pulse animate__infinite">
+                    <i class="fas fa-calculator"></i> Calculate GPA
+                </button>
+            </div>
+        </div>
+
+        <div id="resultModal" class="modal">
+            <div class="modal-content animate__animated animate__zoomIn">
+                <span class="close-btn">&times;</span>
+                <h2 id="resultTitle">GPA Result</h2>
+                <div class="result-details">
+                    <div class="result-summary">
+                        <div class="gpa-display">
+                            <span id="finalGPA">0.00</span>
+                            <small>GPA</small>
+                        </div>
+                        <div class="grade-display">
+                            <span id="finalGrade">-</span>
+                            <small>Grade</small>
+                        </div>
+                        <div class="credit-display">
+                            <span id="totalCredits">0.00</span>
+                            <small>Total Credits</small>
+                        </div>
+                    </div>
+                    <div class="marksheet-table-container">
+                        <table class="marksheet-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Theory Grade</th>
+                                    <th>Practical Grade</th>
+                                    <th>Final Grade</th>
+                                    <th>Credit Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marksheetBody">
+                                <!-- Will be populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <button id="printBtn" class="btn-secondary">
+                        <i class="fas fa-print"></i> Print Result
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
