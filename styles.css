@@ -458,6 +458,75 @@ body {
 .grade-D { color: #d32f2f; font-weight: 600; }
 .grade-NG { color: #888; font-weight: 600; }
 
+/* Policy Pages Styles */
+.policy-section {
+    padding: 100px 0 60px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
+.policy-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.last-updated {
+    color: var(--text-light);
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.policy-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.policy-content h2 {
+    font-size: 1.5rem;
+    margin: 30px 0 15px;
+    color: var(--dark-color);
+}
+
+.policy-content p, .policy-content ul {
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.policy-content ul {
+    padding-left: 20px;
+}
+
+.policy-content li {
+    margin-bottom: 10px;
+}
+
+address {
+    font-style: normal;
+    margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .policy-section {
+        padding: 80px 0 40px;
+    }
+    
+    .policy-content {
+        padding: 25px;
+    }
+    
+    .policy-section h1 {
+        font-size: 2rem;
+    }
+    
+    .policy-content h2 {
+        font-size: 1.3rem;
+    }
+}
+
 /* Responsive Styles */
 @media (max-width: 992px) {
     .hero .container {
