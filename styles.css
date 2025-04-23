@@ -582,9 +582,20 @@ address {
         justify-content: center;
     }
 }
-/* Responsive Styles */
+
+/* Mobile Menu Styles */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--dark-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
 @media (max-width: 768px) {
-    /* Mobile Menu Styles */
     .mobile-menu-toggle {
         display: block;
     }
@@ -603,10 +614,12 @@ address {
         overflow: hidden;
         transition: max-height 0.3s ease;
         gap: 0;
+        z-index: 1000;
     }
     
     .nav-links.active {
-        max-height: 500px; /* Adjust based on your menu items */
+        max-height: 100vh;
+        padding: 20px 0;
     }
     
     .nav-links a {
@@ -618,6 +631,7 @@ address {
     
     .nav-links a.btn-primary {
         margin: 15px auto 0;
-        width: auto;
+        width: 80%;
+        text-align: center;
     }
 }
