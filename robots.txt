@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+
+# Allow crawling of specific pages
+Allow: /calculator/
+
+Sitemap: https://www.neb.ankitak.com.np/sitemap.xml
