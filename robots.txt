@@ -4,6 +4,7 @@ Disallow: /login/
 Disallow: /register/
 
 # Allow crawling of specific pages
-Allow: /calculator/
+Allow: /science/
+Allow: /management/
 
 Sitemap: https://neb.ankitak.com.np/sitemap.xml
