@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+
+# Allow crawling of specific pages
+Allow: /science/
+Allow: /management/
+
+Sitemap: https://neb.ankitak.com.np/sitemap.xml
