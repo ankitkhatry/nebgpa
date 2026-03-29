@@ -215,7 +215,7 @@ header p {
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .close-btn {
@@ -240,7 +240,9 @@ header p {
 
 .result-details {
     text-align: center;
-    overflow: hidden;
+    overflow-y: auto;
+    max-height: calc(90vh - 120px);
+    padding-right: 4px;
 }
 
 .result-summary {
@@ -286,8 +288,8 @@ header p {
 
 .marksheet-table-container {
     overflow-x: auto;
-    overflow-y: auto;
-    max-height: min(52vh, 420px);
+    overflow-y: visible;
+    max-height: none;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
 }

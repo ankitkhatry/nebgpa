@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEB Marksheet (Sample)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --line: #d5deef;
+      --ink: #111827;
+      --muted: #64748b;
+      --head: #1f3b98;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: var(--ink);
+      background: #f3f6ff;
+      padding: 16px;
+    }
+
+    .top-actions {
+      max-width: 860px;
+      margin: 0 auto 12px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid #b9c8ef;
+      background: #fff;
+      color: #1f3b98;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .paper {
+      width: min(100%, 860px);
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #111;
+      padding: 14px;
+      position: relative;
+      overflow: auto;
+    }
+
+    .watermark {
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-22deg);
+      font-size: clamp(30px, 7vw, 52px);
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .marksheet-header {
+      text-align: center;
+      border: 1px solid var(--line);
+      padding: 10px;
+      margin-bottom: 10px;
+      background: linear-gradient(180deg, #f5f8ff, #fff);
+    }
+
+    .marksheet-header h1 {
+      margin: 0;
+      font-size: clamp(1rem, 3.5vw, 1.3rem);
+      color: var(--head);
+    }
+
+    .marksheet-header p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: #425371;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .meta div {
+      border: 1px solid var(--line);
+      padding: 8px;
+      min-height: 52px;
+    }
+
+    .meta span {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .meta strong {
+      font-size: 0.92rem;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .summary-card {
+      border: 1px solid var(--line);
+      padding: 8px;
+      text-align: center;
+      background: #f9fbff;
+    }
+
+    .summary-card .value {
+      display: block;
+      font-weight: 700;
+      font-size: 1.4rem;
+      line-height: 1.1;
+    }
+
+    .summary-card small {
+      color: #475569;
+      font-size: 0.72rem;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 6px;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f5ff;
+      color: #1f2f55;
+    }
+
+    .note {
+      margin-top: 9px;
+      font-size: 0.75rem;
+      color: #4f5f7b;
+    }
+
+    .signatures {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .sign {
+      border-top: 1px dashed #7f8ea8;
+      text-align: center;
+      padding-top: 8px;
+      font-size: 0.76rem;
+      color: #4b5c78;
+    }
+
+    .grade-aplus, .grade-a { color: #166534; font-weight: 700; }
+    .grade-bplus, .grade-b { color: #1d4ed8; font-weight: 700; }
+    .grade-cplus, .grade-c { color: #b45309; font-weight: 700; }
+    .grade-d { color: #b91c1c; font-weight: 700; }
+    .grade-ng { color: #6b7280; font-weight: 700; }
+
+    @media (max-width: 760px) {
+      .meta,
+      .summary,
+      .signatures {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .top-actions { display: none !important; }
+
+      .paper {
+        width: 100%;
+        border: 1px solid #111;
+        padding: 8mm;
+        margin: 0;
+      }
+
+      table {
+        min-width: 0;
+        font-size: 11px;
+      }
+
+      th, td {
+        padding: 4px 6px;
+      }
+
+      tr { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-actions">
+    <button class="btn" id="printBtn">Print / Save PDF</button>
+    <a class="btn" href="javascript:history.back()">Back</a>
+  </div>
+
+  <main class="paper" id="paper">
+    <div class="watermark">SAMPLE / EXAMPLE</div>
+    <section class="marksheet-header">
+      <h1>National Examination Board (NEB)</h1>
+      <p>Grade 12 - Provisional GPA Marksheet</p>
+    </section>
+
+    <section class="meta">
+      <div><span>Student Name</span><strong id="studentName">-</strong></div>
+      <div><span>Stream</span><strong id="stream">-</strong></div>
+      <div><span>Issued Date</span><strong id="issueDate">-</strong></div>
+    </section>
+
+    <section class="summary">
+      <div class="summary-card"><span class="value" id="gpa">0.00</span><small>GPA</small></div>
+      <div class="summary-card"><span class="value" id="grade">-</span><small>Grade</small></div>
+      <div class="summary-card"><span class="value" id="credits">0.00</span><small>Total Credits</small></div>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Theory Grade</th>
+            <th>Practical Grade</th>
+            <th>Final Grade</th>
+            <th>Credit Hours</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+
+    <p class="note">Sample / Example only: This is a system-generated provisional marksheet based on your entered grades and official NEB grading rules.</p>
+
+    <section class="signatures">
+      <div class="sign">Prepared By</div>
+      <div class="sign">Verified By</div>
+    </section>
+  </main>
+
+  <script>
+    function gradeClass(grade) {
+      return 'grade-' + String(grade).toLowerCase().replace('+', 'plus');
+    }
+
+    const raw = sessionStorage.getItem('nebMarksheetData');
+    if (!raw) {
+      alert('No marksheet data found. Please calculate GPA first.');
+      history.back();
+    } else {
+      const data = JSON.parse(raw);
+      document.getElementById('studentName').textContent = data.studentName || '-';
+      document.getElementById('stream').textContent = data.stream || '-';
+      document.getElementById('issueDate').textContent = data.issueDate || '-';
+      document.getElementById('gpa').textContent = data.gpa || '0.00';
+
+      const gradeEl = document.getElementById('grade');
+      gradeEl.textContent = data.finalGrade || '-';
+      gradeEl.className = 'value ' + gradeClass(data.finalGrade || '');
+
+      document.getElementById('credits').textContent = data.totalCredits || '0.00';
+
+      const tbody = document.getElementById('rows');
+      (data.rows || []).forEach((r) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.subject || '-'}</td>
+          <td class="${gradeClass(r.theoryGrade || '')}">${r.theoryGrade || '-'}</td>
+          <td class="${gradeClass(r.practicalGrade || '')}">${r.practicalGrade || '-'}</td>
+          <td class="${gradeClass(r.finalGrade || '')}">${r.finalGrade || '-'}</td>
+          <td>${r.creditHours || '-'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    if (!isMobile) {
+      setTimeout(() => window.print(), 350);
+    }
+  </script>
+</body>
+</html>

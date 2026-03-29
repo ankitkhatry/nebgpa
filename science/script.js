@@ -39,6 +39,8 @@ $(document).ready(function() {
         return `grade-${grade.toLowerCase().replace('+', 'plus')}`;
     }
 
+    let latestMarksheetPayload = null;
+
     // Calculate final grade based on weighted average
     function calculateFinalGrade(theoryGPA, practicalGPA, theoryCredit, practicalCredit) {
         const totalCredit = theoryCredit + practicalCredit;
@@ -254,6 +256,22 @@ $(document).ready(function() {
                 </tr>
             `);
         });
+
+        latestMarksheetPayload = {
+            stream: 'Science',
+            studentName,
+            issueDate,
+            gpa: gpa.toFixed(2),
+            finalGrade: finalGradeInfo.grade,
+            totalCredits: totalCreditHours.toFixed(2),
+            rows: marksheetData.map(subject => ({
+                subject: subject.subject,
+                theoryGrade: subject.theoryGrade.grade,
+                practicalGrade: subject.practicalGrade.grade,
+                finalGrade: subject.finalGrade.grade,
+                creditHours: subject.creditHours
+            }))
+        };
         
         openResultModal();
     }
@@ -281,20 +299,30 @@ $(document).ready(function() {
         }
     });
 
-    // Print button functionality (mobile-friendly, no popup dependency)
-    function printMarksheet() {
-        $('body').addClass('printing-marksheet');
-        setTimeout(function() {
-            window.print();
-        }, 60);
+    // Print button functionality (works on mobile and desktop)
+    function openPrintableView() {
+        if (!latestMarksheetPayload) {
+            showError('Please calculate GPA first.');
+            return;
+        }
+
+        sessionStorage.setItem('nebMarksheetData', JSON.stringify(latestMarksheetPayload));
+        const printUrl = new URL('../print.html', window.location.href).toString();
+        const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+        if (isMobile) {
+            window.location.href = printUrl;
+            return;
+        }
+
+        const popup = window.open(printUrl, '_blank');
+        if (!popup) {
+            window.location.href = printUrl;
+        }
     }
 
-    window.addEventListener('afterprint', function() {
-        $('body').removeClass('printing-marksheet');
-    });
-
     $('#printBtn').click(function() {
-        printMarksheet();
+        openPrintableView();
     });
 
     // Initialize subject cards animation
