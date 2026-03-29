@@ -371,153 +371,20 @@ $(document).ready(function() {
         }
     });
 
-    // Print button functionality
+    // Print button functionality (mobile-friendly, no popup dependency)
+    function printMarksheet() {
+        $('body').addClass('printing-marksheet');
+        setTimeout(function() {
+            window.print();
+        }, 60);
+    }
+
+    window.addEventListener('afterprint', function() {
+        $('body').removeClass('printing-marksheet');
+    });
+
     $('#printBtn').click(function() {
-        const marksheetHtml = $('#marksheetPaper').prop('outerHTML');
-        const printWindow = window.open('', '_blank', 'width=900,height=1200');
-
-        if (!printWindow) {
-            showError('Please allow pop-ups to print/save PDF.');
-            return;
-        }
-
-        const printStyles = `
-            <style>
-                @page { size: A4 portrait; margin: 10mm; }
-                * { box-sizing: border-box; }
-                body {
-                    margin: 0;
-                    font-family: 'Poppins', Arial, sans-serif;
-                    color: #111827;
-                    background: #fff;
-                }
-                .print-wrapper {
-                    width: 100%;
-                    max-width: 190mm;
-                    margin: 0 auto;
-                    border: 1px solid #111;
-                    padding: 8mm;
-                    position: relative;
-                }
-                .print-watermark {
-                    position: absolute;
-                    top: 45%;
-                    left: 50%;
-                    transform: translate(-50%, -50%) rotate(-22deg);
-                    font-size: 42px;
-                    font-weight: 700;
-                    color: rgba(0, 0, 0, 0.06);
-                    white-space: nowrap;
-                    pointer-events: none;
-                }
-                .result-details { display: block !important; }
-                .marksheet-header {
-                    text-align: center;
-                    border: 1px solid #d1d5db;
-                    padding: 8px;
-                    margin-bottom: 8px;
-                }
-                .marksheet-header h3 { margin: 0; font-size: 18px; }
-                .marksheet-header p { margin: 4px 0 0; font-size: 13px; }
-                .marksheet-meta {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 6px;
-                    margin-bottom: 8px;
-                }
-                .marksheet-meta div {
-                    border: 1px solid #d1d5db;
-                    padding: 6px;
-                    min-height: 44px;
-                }
-                .marksheet-meta span { display: block; font-size: 10px; color: #4b5563; }
-                .marksheet-meta strong { font-size: 12px; }
-                .result-summary {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 8px;
-                    margin-bottom: 8px;
-                }
-                .gpa-display, .grade-display, .credit-display {
-                    border: 1px solid #d1d5db;
-                    text-align: center;
-                    padding: 6px;
-                }
-                .gpa-display span, .grade-display span, .credit-display span {
-                    display: block;
-                    font-size: 24px;
-                    font-weight: 700;
-                    line-height: 1.1;
-                }
-                .gpa-display small, .grade-display small, .credit-display small {
-                    font-size: 10px;
-                    color: #374151;
-                }
-                .marksheet-table-container {
-                    overflow: visible !important;
-                    max-height: none !important;
-                }
-                .marksheet-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    font-size: 11px;
-                }
-                .marksheet-table th,
-                .marksheet-table td {
-                    border: 1px solid #d1d5db;
-                    padding: 5px 6px;
-                    text-align: left;
-                }
-                .marksheet-table th { background: #f3f4f6; }
-                .marksheet-table tr { page-break-inside: avoid; }
-                .marksheet-note { font-size: 10px; margin: 8px 0; }
-                .marksheet-signature-row {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 14px;
-                    margin-top: 14px;
-                }
-                .signature-box {
-                    border-top: 1px dashed #6b7280;
-                    padding-top: 8px;
-                    text-align: center;
-                    font-size: 10px;
-                }
-                .grade-aplus, .grade-Aplus { color: #166534; font-weight: 700; }
-                .grade-a, .grade-A { color: #166534; font-weight: 700; }
-                .grade-bplus, .grade-Bplus { color: #1d4ed8; font-weight: 700; }
-                .grade-b, .grade-B { color: #1d4ed8; font-weight: 700; }
-                .grade-cplus, .grade-Cplus { color: #b45309; font-weight: 700; }
-                .grade-c, .grade-C { color: #b45309; font-weight: 700; }
-                .grade-d, .grade-D { color: #b91c1c; font-weight: 700; }
-                .grade-ng, .grade-NG { color: #6b7280; font-weight: 700; }
-            </style>
-        `;
-
-        printWindow.document.open();
-        printWindow.document.write(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>NEB Marksheet (Sample)</title>
-                <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-                ${printStyles}
-            </head>
-            <body>
-                <div class="print-wrapper">
-                    <div class="print-watermark">SAMPLE / EXAMPLE</div>
-                    ${marksheetHtml}
-                </div>
-            </body>
-            </html>
-        `);
-        printWindow.document.close();
-
-        printWindow.onload = function() {
-            printWindow.focus();
-            printWindow.print();
-            printWindow.close();
-        };
+        printMarksheet();
     });
 
     // Initialize subject cards animation

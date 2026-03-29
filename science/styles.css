@@ -773,6 +773,17 @@ select:focus-visible {
 }
 
 @media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
+
+    html, body {
+        width: 210mm;
+        min-height: 297mm;
+        background: #fff !important;
+    }
+
     body * {
         visibility: hidden;
     }
@@ -800,8 +811,23 @@ select:focus-visible {
         border-radius: 0 !important;
         box-shadow: none !important;
         overflow: visible !important;
-        padding: 12mm !important;
+        padding: 8mm !important;
         break-inside: avoid;
+        position: relative;
+    }
+
+    body.printing-marksheet .modal-content::after {
+        content: 'SAMPLE / EXAMPLE';
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-22deg);
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: rgba(0, 0, 0, 0.06);
+        pointer-events: none;
+        white-space: nowrap;
     }
 
     .close-btn,
@@ -812,5 +838,33 @@ select:focus-visible {
     .marksheet-table-container {
         max-height: none !important;
         overflow: visible !important;
+    }
+
+    .marksheet-meta,
+    .result-summary {
+        gap: 6px !important;
+    }
+
+    .marksheet-table {
+        font-size: 11px !important;
+    }
+
+    .marksheet-table th,
+    .marksheet-table td {
+        padding: 4px 6px !important;
+    }
+
+    .gpa-display span,
+    .grade-display span,
+    .credit-display span {
+        font-size: 1.5rem !important;
+    }
+
+    .marksheet-note {
+        font-size: 10px !important;
+    }
+
+    .marksheet-signature-row {
+        margin-top: 10px !important;
     }
 }
