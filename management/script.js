@@ -389,30 +389,136 @@ $(document).ready(function() {
         }
     });
 
-    // Print button functionality (works on mobile and desktop)
-    function openPrintableView() {
+    // Download marksheet as PDF
+    function downloadMarksheetPdf() {
         if (!latestMarksheetPayload) {
             showError('Please calculate GPA first.');
             return;
         }
 
-        sessionStorage.setItem('nebMarksheetData', JSON.stringify(latestMarksheetPayload));
-        const printUrl = new URL('../print.html', window.location.href).toString();
-        const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-
-        if (isMobile) {
-            window.location.href = printUrl;
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            showError('PDF library not loaded. Please refresh and try again.');
             return;
         }
 
-        const popup = window.open(printUrl, '_blank');
-        if (!popup) {
-            window.location.href = printUrl;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+        const data = latestMarksheetPayload;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const margin = 10;
+
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(215, 220, 230);
+        doc.setFontSize(28);
+        doc.text('PROVISIONAL • NOT OFFICIAL', pageWidth / 2, pageHeight / 2, { align: 'center', angle: -28 });
+
+        doc.setTextColor(23, 37, 84);
+        doc.setFontSize(16);
+        doc.text('National Examination Board (NEB)', pageWidth / 2, 18, { align: 'center' });
+
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(51, 65, 85);
+        doc.setFontSize(11);
+        doc.text('Grade 12 - Provisional GPA Marksheet', pageWidth / 2, 24, { align: 'center' });
+
+        doc.setDrawColor(180, 196, 232);
+        doc.roundedRect(margin, 30, pageWidth - (margin * 2), 18, 1.5, 1.5);
+        doc.setFontSize(9);
+        doc.setTextColor(100, 116, 139);
+        doc.text('Student Name', 14, 36);
+        doc.text('Stream', 82, 36);
+        doc.text('Issued Date', 138, 36);
+
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(17, 24, 39);
+        doc.setFontSize(10.5);
+        doc.text(String(data.studentName || '-'), 14, 42);
+        doc.text(String(data.stream || '-'), 82, 42);
+        doc.text(String(data.issueDate || '-'), 138, 42);
+
+        doc.setDrawColor(180, 196, 232);
+        doc.roundedRect(margin, 52, pageWidth - (margin * 2), 18, 1.5, 1.5);
+        doc.setTextColor(100, 116, 139);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.text('GPA', 20, 58);
+        doc.text('Grade', 97, 58);
+        doc.text('Total Credits', 158, 58, { align: 'center' });
+
+        doc.setTextColor(17, 24, 39);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.text(String(data.gpa || '0.00'), 20, 66);
+        doc.text(String(data.finalGrade || '-'), 97, 66);
+        doc.text(String(data.totalCredits || '0.00'), 158, 66, { align: 'center' });
+
+        const rows = (data.rows || []).map((r) => [
+            r.subject || '-',
+            r.theoryGrade || '-',
+            r.practicalGrade || '-',
+            r.finalGrade || '-',
+            r.creditHours || '-'
+        ]);
+
+        if (typeof doc.autoTable !== 'function') {
+            showError('PDF table plugin not loaded. Please refresh and try again.');
+            return;
         }
+
+        doc.autoTable({
+            startY: 74,
+            head: [['Subject', 'Theory Grade', 'Practical Grade', 'Final Grade', 'Credit Hours']],
+            body: rows,
+            theme: 'grid',
+            styles: { fontSize: 9, cellPadding: 2.4, textColor: [31, 41, 55] },
+            headStyles: { fillColor: [241, 245, 255], textColor: [31, 47, 85], fontStyle: 'bold' },
+            columnStyles: {
+                0: { cellWidth: 62 },
+                1: { cellWidth: 32, halign: 'center' },
+                2: { cellWidth: 34, halign: 'center' },
+                3: { cellWidth: 28, halign: 'center' },
+                4: { cellWidth: 24, halign: 'center' }
+            },
+            didParseCell: function (hookData) {
+                if (hookData.section !== 'body') return;
+                const gradeColumns = [1, 2, 3];
+                if (!gradeColumns.includes(hookData.column.index)) return;
+                const g = String(hookData.cell.raw || '').toUpperCase();
+                if (g === 'A+' || g === 'A') hookData.cell.styles.textColor = [22, 101, 52];
+                else if (g === 'B+' || g === 'B') hookData.cell.styles.textColor = [29, 78, 216];
+                else if (g === 'C+' || g === 'C') hookData.cell.styles.textColor = [180, 83, 9];
+                else if (g === 'D') hookData.cell.styles.textColor = [185, 28, 28];
+                else if (g === 'NG') hookData.cell.styles.textColor = [107, 114, 128];
+                hookData.cell.styles.fontStyle = 'bold';
+            }
+        });
+
+        const tableBottomY = doc.lastAutoTable.finalY || 220;
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(71, 85, 105);
+        doc.setFontSize(8.8);
+        doc.text(
+            'This marksheet is generated using GPA Calculator by Ankit Khatri KC for reference purposes and is not an official NEB result.',
+            margin,
+            tableBottomY + 8,
+            { maxWidth: pageWidth - (margin * 2) }
+        );
+
+        const signY = tableBottomY + 18;
+        doc.setDrawColor(125, 142, 168);
+        doc.line(margin + 5, signY, margin + 65, signY);
+        doc.line(pageWidth - margin - 65, signY, pageWidth - margin - 5, signY);
+        doc.setFontSize(8.5);
+        doc.text('Prepared By', margin + 35, signY + 4, { align: 'center' });
+        doc.text('Verified By', pageWidth - margin - 35, signY + 4, { align: 'center' });
+
+        const safeName = String(data.studentName || 'Student').trim().replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '') || 'Student';
+        doc.save(`NEB-Marksheet-${safeName}.pdf`);
     }
 
     $('#printBtn').click(function() {
-        openPrintableView();
+        downloadMarksheetPdf();
     });
 
     // Initialize subject cards animation
